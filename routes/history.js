@@ -32,8 +32,8 @@ router.get('/', async (req, res) => {
         const booksTaken = await History.find({ status: 'taken', dueDate: { $gte: new Date() } }).populate('studentId').populate('bookId');
         const booksReturned = await History.find({ status: 'returned' }).populate('studentId').populate('bookId');
 
-        res.render('history', { 
-            title: "History", 
+        res.render('history', {
+            title: "History",
             overdueBooks,
             booksTaken,
             booksReturned
@@ -59,5 +59,59 @@ router.post('/return', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+// History Pages Routes
+
+// Overdue Books History
+router.get('/overdue', async (req, res) => {
+    try {
+        const overdueBooks = await History.find({ status: 'taken', dueDate: { $lt: new Date() } }).populate('studentId').populate('bookId');
+        overdueBooks.forEach(entry => {
+            entry.fine = moment().diff(entry.dueDate, 'days') * 5;
+        });
+
+        res.render('overdue-history', {
+            title: "Overdue Books History",
+            overdueBooks,
+            formatDate: date => moment(date).format('YYYY-MM-DD') // Helper function for formatting dates
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Books Taken History
+router.get('/taken', async (req, res) => {
+    try {
+        const booksTaken = await History.find({ status: 'taken', dueDate: { $gte: new Date() } }).populate('studentId').populate('bookId');
+
+        res.render('taken-history', {
+            title: "Books Taken History",
+            booksTaken,
+            formatDate: date => moment(date).format('YYYY-MM-DD') // Helper function for formatting dates
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Books Returned History
+router.get('/returned', async (req, res) => {
+    try {
+        const booksReturned = await History.find({ status: 'returned' }).populate('studentId').populate('bookId');
+
+        res.render('returned-history', {
+            title: "Books Returned History",
+            booksReturned,
+            formatDate: date => moment(date).format('YYYY-MM-DD') // Helper function for formatting dates
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
 
 module.exports = router;

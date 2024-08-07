@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library History - Luminara Library</title>
+    <title>Books Taken History - Luminara Library</title>
     <link rel="stylesheet" href="/styles.css">
     <style>
         body {
@@ -26,11 +26,6 @@
             text-align: center;
         }
 
-        h2 {
-            color: #0078e8;
-            margin-top: 20px;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -51,74 +46,28 @@
             color: white;
         }
 
-        .overdue td {
-            color: red;
-        }
-
-        .taken td {
+        .taken {
             color: yellow;
-        }
-
-        .returned td {
-            color: green;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>History</h1>
-
-        <h2>Overdue Books</h2>
+        <h1>Books Taken History</h1>
         <table>
             <thead>
                 <tr>
-                    <th>Book Name</th>
                     <th>Student Name</th>
-                    <th>Fine</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each overdueBooks}}
-                <tr class="overdue">
-                    <td>{{this.bookName}}</td>
-                    <td>{{this.studentId.studentName}}</td>
-                    <td>₹{{this.fine}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-
-        <h2>Books Taken</h2>
-        <table>
-            <thead>
-                <tr>
                     <th>Book Name</th>
-                    <th>Student Name</th>
+                    <th>Due Date</th>
                 </tr>
             </thead>
             <tbody>
                 {{#each booksTaken}}
-                <tr class="taken">
-                    <td>{{this.bookName}}</td>
-                    <td>{{this.studentId.studentName}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-
-        <h2>Books Returned</h2>
-        <table>
-            <thead>
                 <tr>
-                    <th>Book Name</th>
-                    <th>Student Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each booksReturned}}
-                <tr class="returned">
+                    <td>{{this.studentId.name}}</td>
                     <td>{{this.bookName}}</td>
-                    <td>{{this.studentId.studentName}}</td>
+                    <td>{{formatDate this.dueDate}}</td>
                 </tr>
                 {{/each}}
             </tbody>
