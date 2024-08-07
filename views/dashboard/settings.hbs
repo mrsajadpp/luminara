@@ -1,0 +1,184 @@
+{{>headers/dashboard/settings}}
+<!-- Seperators Starts -->
+<div class="seperatorContainer">
+    <div class="seperator">
+        <div class="seLeft selected">
+            <a href="/dashboard/settings">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" class="active" width="24"
+                        focusable="false" style="pointer-events: none; display: inherit; width: 24px; height: 24px;">
+                        <path
+                            d="m12 3.06 7 3.21v4.84c0 1.3-.25 2.6-.75 3.86-.15.37-.33.76-.55 1.17-.15.27-.31.54-.48.81-1.32 2.01-3.17 3.42-5.23 3.98-2.06-.56-3.91-1.97-5.23-3.98-.17-.27-.33-.54-.48-.81-.22-.41-.4-.79-.55-1.17-.48-1.26-.73-2.56-.73-3.86V6.27l7-3.21m0-1.1L4 5.63v5.49c0 1.47.3 2.9.81 4.22.17.44.37.86.6 1.28.16.3.34.6.52.88 1.42 2.17 3.52 3.82 5.95 4.44l.12.02.12-.03c2.43-.61 4.53-2.26 5.95-4.43.19-.29.36-.58.52-.88.22-.41.43-.84.6-1.28.51-1.33.81-2.76.81-4.23V5.63l-8-3.67zm1.08 10.15c-.32-.06-.64-.11-.96-.12A2.997 2.997 0 0012 6a2.996 2.996 0 00-.12 5.99c-.32.01-.64.06-.96.12C8.64 12.58 7 14.62 7 17h10c0-2.38-1.64-4.42-3.92-4.89zM10 9c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm1.12 4.09c.37-.08.64-.11.88-.11s.51.03.88.11c1.48.3 2.63 1.46 3 2.91H8.12c.37-1.45 1.52-2.61 3-2.91z">
+                        </path>
+                    </svg>
+                </button>
+                <span class="sepText active">Profile</span>
+            </a>
+        </div>
+        <div class="seRight">
+            <a href="/dashboard/settings/payment">
+                <button>
+                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false"
+                        class="style-scope tp-yt-iron-icon"
+                        style="pointer-events: none; display: block; width: 24px; height: 24px;">
+                        <g width="24" height="24" viewBox="0 0 24 24" class="style-scope tp-yt-iron-icon">
+                            <path
+                                d="M8 7V10C8 10.55 8.45 11 9 11H15C16.1 11 17 11.9 17 13V17C17 18.1 16.1 19 15 19H13V21H11V19H7V18H15C15.55 18 16 17.55 16 17V13C16 12.45 15.55 12 15 12H9C7.9 12 7 11.1 7 10V7C7 5.9 7.9 5 9 5H11V3H13V5H17V6H9C8.45 6 8 6.45 8 7Z"
+                                class="style-scope tp-yt-iron-icon"></path>
+                        </g>
+                    </svg>
+                </button>
+                <span class="sepText">Payment</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div style="width: 100%; height: 90px;"></div>
+<!-- Profile -->
+<div class="container">
+    <form action="/profile/edit" method="post" class="regForm" enctype="multipart/form-data">
+        <input type="file" name="profile" hidden accept="image/jpg, image/jpeg, image/png" id="profileInp">
+        <div id="inputProfile" class="inputProfile" style="background-image: url('/img/user/{{user._id}}.webp');">
+            <button type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="38px" viewBox="0 -960 960 960" width="38px" fill="#fff">
+                    <path
+                        d="M209.23-160q-26.65 0-45.63-18.98-18.98-18.98-18.98-45.64v-510.76q0-26.66 18.98-45.64T209.23-800h335.39v40H209.23q-10.77 0-17.69 6.92-6.92 6.93-6.92 17.7v510.76q0 10.77 6.92 17.7 6.92 6.92 17.69 6.92H720q10.77 0 17.69-6.92 6.93-6.93 6.93-17.7V-560h40v335.38q0 26.66-18.99 45.64Q746.65-160 720-160H209.23Zm486.15-470.77v-80h-80v-40h80v-80h40v80h80v40h-80v80h-40ZM284.62-300h366.15L537.69-450.77 433.08-318.46l-70-84.62L284.62-300Zm-100-460v560-560Z" />
+                </svg>
+            </button>
+        </div>
+        <div class="inputBox">
+            <input type="text" name="first_name" id="first_name" value="{{user.first_name}}" placeholder="First Name"
+                required>
+            &nbsp;
+            <input type="text" name="last_name" id="last_name" value="{{user.last_name}}" placeholder="Last Name">
+        </div>
+        <div class="inputBox">
+            <input type="email" disabled name="email" id="email" value="{{user.email}}" placeholder="Email" required>
+        </div>
+        <div class="inputBox">
+            <input type="tel" name="phone" id="phone" value="{{user.contact_no}}" placeholder="Phone" required>
+        </div>
+        <div class="inputBox">
+            <select name="sex" id="sex">
+                {{#ifequal user.sex 'male'}}
+                <option value="" disabled>Sex</option>
+                <option value="male" selected>Male</option>
+                <option value="female">Female</option>
+                <option value="others">Others</option>
+                {{/ifequal}}
+                {{#ifequal user.sex 'female'}}
+                <option value="" disabled>Sex</option>
+                <option value="male">Male</option>
+                <option value="female" selected>Female</option>
+                <option value="others">Others</option>
+                {{/ifequal}}
+
+                {{#ifequal user.sex 'others'}}
+                <option value="" disabled>Sex</option>
+                <option value="male">Male</option>
+                <option value="female" selected>Female</option>
+                <option value="others" selected>Others</option>
+                {{/ifequal}}
+
+                {{#if user.sex}}
+                {{else}}
+                <option value="" selected disabled>Sex</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="others">Others</option>
+                {{/if}}
+            </select>
+        </div>
+        <div class="inputBox">
+            <input type="text" placeholder="About You" name="bio" id="bio" value="{{user.bio}}">
+        </div>
+        <br>
+        <div class="inputText">
+            <label for="dob">Date of Birth:</label>
+        </div>
+        <div class="inputBox" id="dob">
+            <input type="number" name="day" id="day" value="{{user.dob.day}}" placeholder="Day">
+            &nbsp;
+            <input type="number" name="month" id="last_name" value="{{user.dob.month}}" placeholder="Month">
+            &nbsp;
+            <input type="number" name="year" id="last_name" value="{{user.dob.year}}" placeholder="Year">
+        </div>
+        <br>
+        <div class="inputText">
+            <label for="dob">Address Details:</label>
+        </div>
+        <div class="inputBox">
+            <input type="text" placeholder="Address Line One*" name="address_line_one" id="bio"
+                value="{{user.address.address_line_one}}">
+        </div>
+        <div class="inputBox">
+            <input type="text" placeholder="Address Line Two*" name="address_line_two" id="bio"
+                value="{{user.address.addressline_two}}">
+        </div>
+        <div class="inputBox">
+            <input type="text" placeholder="Country*" name="country" id="bio" value="{{user.address.country}}">
+        </div>
+        <div class="inputBox">
+            <input type="text" placeholder="State*" name="state" id="bio" value="{{user.address.state}}">
+        </div>
+        <div class="inputBox">
+            <input type="text" placeholder="City*" name="city" id="bio" value="{{user.address.city}}">
+        </div>
+        <div class="inputBox">
+            <input type="text" placeholder="Zip Code*" name="zip_code" id="bio" value="{{user.address.zip_code}}">
+        </div>
+        {{#if error}}
+        <div class="inputText">
+            <span class="textMsg" style="color: red;">{{error.message}}</span>
+        </div>
+        {{/if}}
+        <!-- <div class="inputText">
+                <input type="checkbox" name="terms_accept" id="terms">
+                <span>
+                    By using our services, you are accepting our <a href="terms-and-conditions.html"
+                        target="_blank">terms and conditions</a>.
+                </span>
+            </div> -->
+        <div class="inputBox">
+            <button>
+                Save
+            </button>
+        </div>
+        <!-- <div class="inputText">
+                <span>Do you have a account? <a href="./login.html">Signup</a>.</span>
+            </div> -->
+        <br>
+        <div class="inputText">
+            <span>
+                By using our services, you are accepting our <a href="/terms-and-conditions" target="_blank">terms
+                    and conditions</a>.
+            </span>
+        </div>
+    </form>
+</div>
+<br><br><br>
+<!-- Image preview script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputProfileDiv = document.getElementById('inputProfile');
+        const fileInput = document.getElementById('profileInp');
+
+        fileInput.addEventListener('change', function (event) {
+            // event.preventDefault(); // Prevent default form submission behavior
+            const input = event.target;
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    inputProfileDiv.style.backgroundImage = `url(${e.target.result})`;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        inputProfileDiv.addEventListener('click', function () {
+            fileInput.click();
+        });
+    });
+</script>

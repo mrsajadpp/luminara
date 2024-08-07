@@ -1,0 +1,493 @@
+<!-- Desktop Header -->
+<div class="header">
+    <div class="hLeft">
+        <a href="/">
+            <img src="/img/logo.png" alt="Grovix Lab">
+        </a>
+    </div>
+    <div class="hCenter">
+        <div class="searchBar">
+            <input type="text" placeholder="Search" name="query" id="desktop-query">
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24"
+                    viewBox="0 0 24 24" width="24" focusable="false"
+                    style="pointer-events: none; display: inherit; width: 28px; height: 28px;">
+                    <path
+                        d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="hRight">
+        <nav>
+            <ul>
+                <li>
+                    <a href="/">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                                <path
+                                    d="M233.85-193.85h156.92v-238.46h178.46v238.46h156.92v-369.23L480-749.49 233.85-563.25v369.4ZM200-160v-420l280-211.54L760-580v420H535.38v-238.46H424.62V-160H200Zm280-311.74Z" />
+                            </svg>
+                        </button>
+                    </a>
+                </li>
+                <li>
+                    <a href="/trending">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35"
+                                fill="#000">
+                                <path
+                                    d="M240-400q0 68.92 36.77 126.58 36.77 57.65 98.85 86.5-7.93-11.93-11.77-24.77Q360-224.54 360-238q0-23.54 9.31-44.62 9.31-21.07 26.15-37.92L480-403.85l85.31 83.31q16.84 16.85 25.77 37.92Q600-261.54 600-238q0 13.46-3.85 26.31-3.84 12.84-11.77 24.77 62.08-28.85 98.85-86.5Q720-331.08 720-400q0-50-18.5-94.5T648-574q-20 13-42 19.5t-45 6.5q-62.77 0-108.27-41-45.5-41-51.73-102.54-39 32.23-69 67.73-30 35.5-50.5 72.77-20.5 37.27-31 75.27-10.5 38-10.5 75.77Zm240 52-57 56q-11 11-17 25t-6 29q0 32 23.5 55t56.5 23q33 0 56.5-23t23.5-55q0-16-6-29.5T537-292l-57-56Zm-40-420.46V-708q0 50.92 35.04 85.46Q510.08-588 561-588q18.77 0 36.58-6.35 17.8-6.34 33.65-18.27l17.23-13.53q52.46 38.92 82 98.92T760-400q0 117.08-81.46 198.54T480-120q-117.08 0-198.54-81.46T200-400q0-102.85 64.58-201.15Q329.15-699.46 440-768.46Z" />
+                            </svg>
+                        </button>
+                    </a>
+                </li>
+                <li>
+                    <a href="/categories">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32"
+                                class="active">
+                                <path
+                                    d="M320-184.62v-391q0-26.84 19-45.61T384.85-640h390.53q26.85 0 45.74 18.88Q840-602.23 840-575.38v278.46L663.08-120H384.62q-26.85 0-45.74-18.88Q320-157.77 320-184.62ZM121-696.15q-5.23-26.85 10.31-48.35 15.54-21.5 42.38-26.73L558.46-839q26.85-5.23 48.35 10.31 21.5 15.54 26.73 42.38l8.46 50.93H384.62q-66 0-113 47t-47 113v311.23q-13.7-6.7-23.27-19-9.58-12.31-12.58-28.23L121-696.15ZM800-320H640v160l160-160Z" />
+                            </svg>
+                        </button>
+                    </a>
+                </li>
+                {{#if user}}
+                <li>
+                    <a href="/dashboard/">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                                <path
+                                    d="M540-600v-200h260v200H540ZM160-480v-320h260v320H160Zm380 320v-320h260v320H540Zm-380 0v-200h260v200H160Zm40-360h180v-240H200v240Zm380 320h180v-240H580v240Zm0-440h180v-120H580v120ZM200-200h180v-120H200v120Zm180-320Zm200-120Zm0 200ZM380-320Z" />
+                            </svg>
+                        </button>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32"
+                                fill="red">
+                                <path
+                                    d="M224.62-160q-27.62 0-46.12-18.5Q160-197 160-224.62v-510.76q0-27.62 18.5-46.12Q197-800 224.62-800h256.15v40H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v510.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h256.15v40H224.62Zm433.84-178.46-28.08-28.77L723.15-460H367.69v-40h355.46l-92.77-92.77 28.08-28.77L800-480 658.46-338.46Z" />
+                            </svg>
+                        </button>
+                    </a>
+                </li>
+                <li style="width: 55px;">
+                    <a href="/dashboard/settings/">
+                        <button class="profile-menu">
+                            <img src="/img/user/{{user._id}}.webp" alt="{{user.first_name}}"
+                                onerror="this.onerror=null;this.src='/img/default-user.jpg';">
+                        </button>
+                    </a>
+                </li>
+                {{else}}
+                <li style="width: 55px;">
+                    <a href="/auth/signup">
+                        <button class="profile-menu">
+                            <img src="/img/plus.jpg" alt="Login">
+                        </button>
+                    </a>
+                </li>
+                {{/if}}
+                &nbsp;&nbsp;
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div class="suggestionCo">
+    <div class="desktop-searchSuggestions hidden" id="desktop-searchSuggestions">
+        <!-- Suggestions will be dynamically inserted here -->
+    </div>
+</div>
+
+<!-- Mobile Header -->
+<div class="headerMobile">
+    <div class="hLeft">
+        <button onclick="menu();">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32" fill="#000">
+                <path
+                    d="M140-254.62v-50.25h680v50.25H140Zm0-200.25v-50.26h680v50.26H140Zm0-200.26v-50.25h680v50.25H140Z" />
+            </svg>
+        </button>
+        <div class="logo">
+            <a href="/">
+                <img src="/img/logo.png" alt="Grovix Lab">
+            </a>
+        </div>
+    </div>
+    <div class="hRight">
+        <nav>
+            <ul>
+                <li>
+                    <a>
+                        <button onclick="search();" id="searchIcon">
+                            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24"
+                                viewBox="0 0 24 24" width="24" focusable="false"
+                                style="pointer-events: none; display: inherit; width: 28px; height: 28px;">
+                                <path
+                                    d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z">
+                                </path>
+                            </svg>
+                        </button>
+                    </a>
+                </li>
+                {{#if user}}
+                <li style="width: 55px;">
+                    <a href="/dashboard/settings/">
+                        <button class="profile-menu">
+                            <img src="/img/user/{{user._id}}.webp" alt="{{user.first_name}}"
+                                onerror="this.onerror=null;this.src='/img/default-user.jpg';">
+                        </button>
+                    </a>
+                </li>
+                {{else}}
+                <li style="width: 55px;">
+                    <a href="/auth/signup">
+                        <button class="profile-menu">
+                            <img src="/img/plus.jpg" alt="Login">
+                        </button>
+                    </a>
+                </li>
+                {{/if}}
+                &nbsp;&nbsp;
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Mobile Menu -->
+<div class="mobileMenu hide" id="mobileMenu">
+    <div class="menuTop">
+        <button onclick="menu();">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                <path
+                    d="M256-227.69 227.69-256l224-224-224-224L256-732.31l224 224 224-224L732.31-704l-224 224 224 224L704-227.69l-224-224-224 224Z" />
+            </svg>
+        </button>
+    </div>
+    <div class="menuItems">
+        <div class="menuItem">
+            <a href="/">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                        <path
+                            d="M233.85-193.85h156.92v-238.46h178.46v238.46h156.92v-369.23L480-749.49 233.85-563.25v369.4ZM200-160v-420l280-211.54L760-580v420H535.38v-238.46H424.62V-160H200Zm280-311.74Z" />
+                    </svg>
+                </button>
+                <span>Home</span>
+            </a>
+        </div>
+        <div class="menuItem">
+            <a href="/trending">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35" fill="#000">
+                        <path
+                            d="M240-400q0 68.92 36.77 126.58 36.77 57.65 98.85 86.5-7.93-11.93-11.77-24.77Q360-224.54 360-238q0-23.54 9.31-44.62 9.31-21.07 26.15-37.92L480-403.85l85.31 83.31q16.84 16.85 25.77 37.92Q600-261.54 600-238q0 13.46-3.85 26.31-3.84 12.84-11.77 24.77 62.08-28.85 98.85-86.5Q720-331.08 720-400q0-50-18.5-94.5T648-574q-20 13-42 19.5t-45 6.5q-62.77 0-108.27-41-45.5-41-51.73-102.54-39 32.23-69 67.73-30 35.5-50.5 72.77-20.5 37.27-31 75.27-10.5 38-10.5 75.77Zm240 52-57 56q-11 11-17 25t-6 29q0 32 23.5 55t56.5 23q33 0 56.5-23t23.5-55q0-16-6-29.5T537-292l-57-56Zm-40-420.46V-708q0 50.92 35.04 85.46Q510.08-588 561-588q18.77 0 36.58-6.35 17.8-6.34 33.65-18.27l17.23-13.53q52.46 38.92 82 98.92T760-400q0 117.08-81.46 198.54T480-120q-117.08 0-198.54-81.46T200-400q0-102.85 64.58-201.15Q329.15-699.46 440-768.46Z" />
+                    </svg>
+                </button>
+                <span>Trending</span>
+            </a>
+        </div>
+        <div class="menuItem">
+            <a href="/categories">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32"
+                        class="active">
+                        <path
+                            d="M320-184.62v-391q0-26.84 19-45.61T384.85-640h390.53q26.85 0 45.74 18.88Q840-602.23 840-575.38v278.46L663.08-120H384.62q-26.85 0-45.74-18.88Q320-157.77 320-184.62ZM121-696.15q-5.23-26.85 10.31-48.35 15.54-21.5 42.38-26.73L558.46-839q26.85-5.23 48.35 10.31 21.5 15.54 26.73 42.38l8.46 50.93H384.62q-66 0-113 47t-47 113v311.23q-13.7-6.7-23.27-19-9.58-12.31-12.58-28.23L121-696.15ZM800-320H640v160l160-160Z" />
+                    </svg>
+                </button>
+                <span class="active">Categories</span>
+            </a>
+        </div>
+        {{#if user}}
+        <div class="menuItem">
+            <a href="/dashboard/">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                        <path
+                            d="M540-600v-200h260v200H540ZM160-480v-320h260v320H160Zm380 320v-320h260v320H540Zm-380 0v-200h260v200H160Zm40-360h180v-240H200v240Zm380 320h180v-240H580v240Zm0-440h180v-120H580v120ZM200-200h180v-120H200v120Zm180-320Zm200-120Zm0 200ZM380-320Z" />
+                    </svg>
+                </button>
+                <span>Dashboard</span>
+            </a>
+        </div>
+        <div class="menuItem">
+            <a href="/logout">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32" fill="red">
+                        <path
+                            d="M224.62-160q-27.62 0-46.12-18.5Q160-197 160-224.62v-510.76q0-27.62 18.5-46.12Q197-800 224.62-800h256.15v40H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v510.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h256.15v40H224.62Zm433.84-178.46-28.08-28.77L723.15-460H367.69v-40h355.46l-92.77-92.77 28.08-28.77L800-480 658.46-338.46Z" />
+                    </svg>
+                </button>
+                <span style="color: red;">Logout</span>
+            </a>
+        </div>
+        {{else}}
+        <div class="menuItem">
+            <a href="/auth/signup">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                        <path
+                            d="M479.23-160v-40h256.15q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-510.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H479.23v-40h256.15q27.62 0 46.12 18.5Q800-763 800-735.38v510.76q0 27.62-18.5 46.12Q763-160 735.38-160H479.23Zm-28.46-178.46-28.08-28.77L515.46-460H160v-40h355.46l-92.77-92.77 28.08-28.77L592.31-480 450.77-338.46Z" />
+                    </svg>
+                </button>
+                <span style="">Signup</span>
+            </a>
+        </div>
+        {{/if}}
+    </div>
+    <div class="menuItems">
+        <div class="menuItem">
+            <a href="mailto:support@grovixlab.com?subject=Feedback">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                        <path
+                            d="M480-383.08q10.85 0 17.73-6.88 6.89-6.89 6.89-17.73 0-10.85-6.89-17.73-6.88-6.89-17.73-6.89-10.85 0-17.73 6.89-6.89 6.88-6.89 17.73 0 10.84 6.89 17.73 6.88 6.88 17.73 6.88Zm-20-118.46h40v-243.08h-40v243.08ZM120-156.92v-618.46q0-27.62 18.5-46.12Q157-840 184.62-840h590.76q27.62 0 46.12 18.5Q840-803 840-775.38v430.76q0 27.62-18.5 46.12Q803-280 775.38-280h-532.3L120-156.92ZM226-320h549.38q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-430.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H184.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v521.15L226-320Zm-66 0v-480 480Z" />
+                    </svg>
+                </button>
+                <span>Feedback</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Mobile Search -->
+<div class="mobileSearch hide" id="searchBar">
+    <div class="searchBar">
+        <input type="text" placeholder="Search" name="query" id="mobile-query">
+        <button title="Search" aria-label="Search">
+            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24"
+                width="24" focusable="false" style="pointer-events: none; display: inherit; width: 28px; height: 28px;">
+                <path
+                    d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z">
+                </path>
+            </svg>
+        </button>
+    </div>
+    <div class="searchSuggestions hidden" id="mobile-searchSuggestions">
+        <!-- Suggestions will be dynamically inserted here -->
+    </div>
+</div>
+
+<style>
+    .desktop-searchSuggestions {
+        position: absolute;
+        width: calc(60% - 70px);
+        /* Adjust according to the search bar width */
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 1000;
+        top: 12%;
+    }
+
+    .desktop-searchSuggestions .desktop-searchSuggestion {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    .desktop-searchSuggestions .desktop-searchSuggestion:last-child {
+        border-bottom: none;
+    }
+
+    .desktop-searchSuggestions .desktop-searchSuggestion a {
+        text-decoration: none;
+        color: #333;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .desktop-searchSuggestions .desktop-searchSuggestion a:hover {
+        background-color: #f5f5f5;
+    }
+
+    .desktop-searchSuggestions .desktop-searchSuggestion a button {
+        border: none;
+        background: none;
+        margin-right: 10px;
+    }
+
+    .desktop-searchSuggestions .no-suggestions-message {
+        padding: 10px;
+        text-align: center;
+        color: #999;
+    }
+
+    .suggestionCo {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+
+<!-- Mobile Menu Script -->
+<script>
+    let mobileMenu = document.getElementById('mobileMenu');
+    let searchIcon = document.getElementById('searchIcon');
+    let searhBar = document.getElementById('searchBar');
+
+    const menu = () => {
+        mobileMenu.classList.toggle('hide');
+        searhBar.classList.add('hide');
+        searchIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24"
+                                    viewBox="0 0 24 24" width="24" focusable="false"
+                                    style="pointer-events: none; display: inherit; width: 28px; height: 28px;">
+                                    <path
+                                        d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z">
+                                    </path>
+                                </svg>`
+    }
+</script>
+
+<!-- Search Bar Script -->
+<script>
+
+    const search = () => {
+        searhBar.classList.toggle('hide');
+        mobileMenu.classList.add('hide');
+        if (searhBar.classList.contains('hide')) {
+            searchIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24"
+                                    viewBox="0 0 24 24" width="24" focusable="false"
+                                    style="pointer-events: none; display: inherit; width: 28px; height: 28px;">
+                                    <path
+                                        d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z">
+                                    </path>
+                                </svg>`
+        } else {
+            searchIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
+                                    <path
+                                        d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z">
+                                    </path>
+                                </svg>`
+        }
+    }
+</script>
+
+<!-- Suggestions Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const mobileQueryInput = document.getElementById('mobile-query');
+        const mobileSuggestionsContainer = document.getElementById('mobile-searchSuggestions');
+
+        mobileQueryInput.addEventListener('input', async function () {
+            const query = mobileQueryInput.value;
+            if (query.length < 2) {
+                mobileSuggestionsContainer.innerHTML = '';
+                mobileSuggestionsContainer.classList.add('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/suggestions?query=${encodeURIComponent(query)}`);
+                const suggestions = await response.json();
+                displayMobileSuggestions(suggestions);
+            } catch (error) {
+                console.error('Error fetching suggestions:', error);
+            }
+        });
+
+        function displayMobileSuggestions(suggestions) {
+            mobileSuggestionsContainer.innerHTML = '';
+            if (suggestions.length > 0) {
+                mobileSuggestionsContainer.classList.remove('hidden');
+                suggestions.forEach(suggestion => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.classList.add('searchSuggestion');
+                    suggestionItem.innerHTML = `
+                    <a href="/page/${suggestion.endpoint}">
+                        <button title="${suggestion.title}" aria-label="${suggestion.title}">
+                            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" focusable="false" style="pointer-events: none; display: inherit; width: 28px; height: 28px; fill: #ccc;">
+                                <path d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"></path>
+                            </svg>
+                        </button>
+                        <span>${suggestion.title}</span>
+                    </a>
+                `;
+                    suggestionItem.addEventListener('click', () => {
+                        mobileQueryInput.value = suggestion.title;
+                        mobileSuggestionsContainer.innerHTML = '';
+                        mobileSuggestionsContainer.classList.add('hidden');
+                    });
+                    mobileSuggestionsContainer.appendChild(suggestionItem);
+                });
+            } else {
+                const noSuggestionsItem = document.createElement('div');
+                noSuggestionsItem.classList.add('no-suggestions-message');
+                noSuggestionsItem.textContent = 'No suggestions found';
+                mobileSuggestionsContainer.appendChild(noSuggestionsItem);
+                mobileSuggestionsContainer.classList.remove('hidden');
+            }
+        }
+
+        const desktopQueryInput = document.getElementById('desktop-query');
+        const desktopSuggestionsContainer = document.getElementById('desktop-searchSuggestions');
+
+        desktopQueryInput.addEventListener('input', async function () {
+            const query = desktopQueryInput.value;
+            if (query.length < 2) {
+                desktopSuggestionsContainer.innerHTML = '';
+                desktopSuggestionsContainer.classList.add('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/suggestions?query=${encodeURIComponent(query)}`);
+                const suggestions = await response.json();
+                displayDesktopSuggestions(suggestions);
+            } catch (error) {
+                console.error('Error fetching suggestions:', error);
+            }
+        });
+
+        function displayDesktopSuggestions(suggestions) {
+            desktopSuggestionsContainer.innerHTML = '';
+            if (suggestions.length > 0) {
+                desktopSuggestionsContainer.classList.remove('hidden');
+                suggestions.forEach(suggestion => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.classList.add('desktop-searchSuggestion');
+                    suggestionItem.innerHTML = `
+                    <a href="/page/${suggestion.endpoint}">
+                        <button title="${suggestion.title}" aria-label="${suggestion.title}">
+                            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" focusable="false" style="pointer-events: none; display: inherit; width: 28px; height: 28px; fill: #ccc;">
+                                <path d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"></path>
+                            </svg>
+                        </button>
+                        <span>${suggestion.title}</span>
+                    </a>
+                `;
+                    suggestionItem.addEventListener('click', () => {
+                        desktopQueryInput.value = suggestion.title;
+                        desktopSuggestionsContainer.innerHTML = '';
+                        desktopSuggestionsContainer.classList.add('hidden');
+                    });
+                    desktopSuggestionsContainer.appendChild(suggestionItem);
+                });
+            } else {
+                const noSuggestionsItem = document.createElement('div');
+                noSuggestionsItem.classList.add('no-suggestions-message');
+                noSuggestionsItem.textContent = 'No suggestions found';
+                desktopSuggestionsContainer.appendChild(noSuggestionsItem);
+                desktopSuggestionsContainer.classList.remove('hidden');
+            }
+        }
+    });
+</script>

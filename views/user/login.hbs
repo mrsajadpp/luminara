@@ -1,0 +1,44 @@
+<div class="container">
+    <form action="/auth/login" method="post" class="regForm">
+        <div class="inputImage">
+            <img src="/img/logo.png" alt="">
+        </div>
+        <div class="inputBox">
+            <input type="email" name="email" value="{{data.email}}" id="email" placeholder="Email">
+        </div>
+        <div class="inputBox" style="background-color: #f0f0f0;">
+            <input type="password" placeholder="Password" name="password" id="password">
+            <button type="button" id="togglePassword"
+                style="margin-left: -30px; background: none; border: none; cursor: pointer;">
+                👁️
+            </button>
+        </div>
+        <div class="inputText">
+            <span>
+                <a href="/auth/recover">Forgot password?</a>
+            </span>
+        </div>
+        {{#if error}}
+        <div class="inputText">
+            <span class="textMsg" style="color: red;">{{error.message}}</span>
+        </div>
+        {{/if}}
+        <div class="inputBox">
+            <button>
+                LogIn
+            </button>
+        </div>
+        <div class="inputText">
+            <span>Dont have an account? <a href="/auth/signup">SignUp</a>.</span>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('password');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '👁️' : '🔒';
+    });
+</script>

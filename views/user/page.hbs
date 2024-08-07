@@ -1,0 +1,916 @@
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    header {
+        width: 100%;
+        position: fixed;
+        top: 0px;
+        height: 65px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        flex-direction: column;
+        background-color: white;
+        /* Added background color to make header visible */
+        box-shadow: rgba(51, 59, 81, 0.05) 0px 15px 30px;
+        z-index: 999;
+    }
+
+    header .inside {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+    }
+
+    header .inside button {
+        border: none;
+        background-color: transparent;
+        height: 100%;
+        width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    header .inside .logo {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    header .inside .logo img {
+        width: 126px;
+    }
+
+    header .progress-bar {
+        height: 2px;
+        /* Increased height for better visibility */
+        width: 100%;
+        background-color: #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }
+
+    header .progress-bar .progress {
+        width: 0%;
+        /* Initial width set to 0 */
+        height: 100%;
+        background-color: #0078e8;
+    }
+
+    @media (min-width: 768px) {
+        header {
+            display: none;
+        }
+    }
+</style>
+<style>
+    .desktop-header {
+        width: 100%;
+        position: fixed;
+        top: 0px;
+        height: 65px;
+        overflow: hidden;
+        display: none;
+        align-items: center;
+        justify-content: start;
+        flex-direction: column;
+        background-color: white;
+        /* Added background color to make .desktop-header visible */
+        z-index: 1000;
+        /* Ensure header is on top */
+        box-shadow: rgba(51, 59, 81, 0.05) 0px 15px 30px;
+    }
+
+    .desktop-header .inside {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+    }
+
+    .desktop-header .inside button {
+        border: none;
+        background-color: transparent;
+        height: 100%;
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .desktop-header .inside button a span {
+        font-size: 16px;
+    }
+
+    .desktop-header .inside button a {
+        text-decoration: none;
+        color: #282733;
+    }
+
+    .desktop-header .inside .regbtn {
+        height: 40px;
+        padding: 20px;
+        background-color: #0078e8;
+        margin-right: 20px;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .desktop-header .inside .regbtn span {
+        color: #fff;
+    }
+
+    .desktop-header .inside .logo {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .desktop-header .inside .logo img {
+        width: 126px;
+    }
+
+    .desktop-header .inside .centerH {
+        height: 100%;
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }
+
+    .desktop-header .dprogress-bar {
+        height: 2px;
+        /* Increased height for better visibility */
+        width: 100%;
+        background-color: #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }
+
+    .desktop-header .dprogress-bar .progress {
+        width: 0%;
+        /* Initial width set to 0 */
+        height: 100%;
+        background-color: #0078e8;
+    }
+
+    @media (min-width: 768px) {
+        .desktop-header {
+            display: flex;
+        }
+    }
+</style>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    .poppins-thin {
+        font-family: "Poppins", sans-serif;
+        font-weight: 100;
+        font-style: normal;
+    }
+
+    .poppins-extralight {
+        font-family: "Poppins", sans-serif;
+        font-weight: 200;
+        font-style: normal;
+    }
+
+    .poppins-light {
+        font-family: "Poppins", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+    }
+
+    .poppins-regular {
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .poppins-medium {
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    .poppins-semibold {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+    }
+
+    .poppins-bold {
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    .poppins-extrabold {
+        font-family: "Poppins", sans-serif;
+        font-weight: 800;
+        font-style: normal;
+    }
+
+    .poppins-black {
+        font-family: "Poppins", sans-serif;
+        font-weight: 900;
+        font-style: normal;
+    }
+
+    .poppins-thin-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 100;
+        font-style: italic;
+    }
+
+    .poppins-extralight-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 200;
+        font-style: italic;
+    }
+
+    .poppins-light-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 300;
+        font-style: italic;
+    }
+
+    .poppins-regular-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        font-style: italic;
+    }
+
+    .poppins-medium-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        font-style: italic;
+    }
+
+    .poppins-semibold-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-style: italic;
+    }
+
+    .poppins-bold-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: italic;
+    }
+
+    .poppins-extrabold-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 800;
+        font-style: italic;
+    }
+
+    .poppins-black-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 900;
+        font-style: italic;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        background-color: #0078e8;
+        color: #000;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: 65px;
+    }
+
+    .content {
+        max-width: 800px;
+        padding: 20px;
+    }
+
+    .meta-info {
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
+
+    .meta-info span {
+        margin: 0 10px;
+    }
+
+    .content h1 {
+        font-size: 1.8em;
+        margin: 20px 0;
+    }
+
+    .content p {
+        font-size: 0.9em;
+        margin: 5px 0;
+    }
+
+    .image-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .image-container img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .container {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .content {
+        max-width: 50%;
+        padding-right: 20px;
+    }
+
+    .image-container {
+        max-width: 50%;
+    }
+
+    .content h1 {
+        font-size: 2.5em;
+    }
+
+    .content p {
+        font-size: 1.2em;
+    }
+
+    .meta-info {
+        font-size: 1em;
+    }
+
+
+    .ar-cont {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .article-container {
+        max-width: 95%;
+        padding-right: 20px;
+        font-family: 'Poppins', sans-serif;
+        text-align: left;
+    }
+
+    .article-container h2 {
+        font-size: 2em;
+        margin-bottom: 15px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .article-container p {
+        font-size: 1em;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+        .container {
+            flex-direction: row;
+            justify-content: space-between;
+            text-align: left;
+        }
+
+        .article-container {
+            max-width: 95%;
+            padding-right: 20px;
+        }
+
+        .content {
+            max-width: 50%;
+            padding-right: 20px;
+        }
+
+        .image-container {
+            max-width: 50%;
+        }
+
+        .content h1 {
+            font-size: 2.5em;
+        }
+
+        .content p {
+            font-size: 1.2em;
+        }
+
+        .meta-info {
+            font-size: 1em;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .container {
+            padding: 60px 40px;
+        }
+
+        .ar-cont {
+            padding: 60px 40px;
+        }
+
+        .content h1 {
+            font-size: 3em;
+        }
+
+        .content p {
+            font-size: 1.2em;
+        }
+
+        .meta-info {
+            font-size: 1em;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .container {
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .ar-cont {
+            padding: 20px;
+        }
+
+        .article-container {
+            max-width: 100%;
+            padding: 10px;
+        }
+
+        .content,
+        .image-container {
+            max-width: 100%;
+            width: 90%;
+            padding: 10px;
+        }
+
+        .content h1 {
+            font-size: 1.5em;
+            text-align: left;
+        }
+
+        .content p {
+            font-size: 0.8em;
+            text-align: left;
+        }
+
+        .meta-info {
+            font-size: 0.9em;
+            text-align: left;
+        }
+
+        .image-container {
+            display: none;
+            justify-content: start;
+        }
+
+        .image-container img {
+            max-width: 60%;
+        }
+    }
+
+    @media (max-width: 425px) {
+        .container {
+            padding: 15px;
+        }
+
+        .ar-cont {
+            padding: 15px;
+        }
+
+        .content h1 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .content p {
+            font-size: 0.7em;
+            margin: 5px 0;
+        }
+
+        .meta-info {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .meta-info span {
+            display: block;
+            margin: 5px 0;
+        }
+    }
+
+    ul,
+    ol {
+        padding: 0px;
+        margin: 20px;
+    }
+
+    .article-container img {
+        width: 100% !important;
+    }
+</style>
+<!-- Mobile Header -->
+<header>
+    <div class="inside">
+        <button>
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32" fill="#000">
+                <path
+                    d="M140-254.62v-50.25h680v50.25H140Zm0-200.25v-50.26h680v50.26H140Zm0-200.26v-50.25h680v50.25H140Z">
+                </path>
+            </svg>
+        </button>
+        <div class="logo">
+            <a href="/">
+                <img src="https://grovixlab.com/img/logo.png" alt="Grovix">
+            </a>
+        </div>
+    </div>
+    <div class="progress-bar">
+        <div class="progress"></div>
+    </div>
+</header>
+
+<!-- Desktop Header -->
+
+<div class="desktop-header">
+    <div class="inside">
+        <div class="logo">
+            <a href="/">
+                <img src="https://grovixlab.com/img/logo.png" alt="Grovix">
+            </a>
+        </div>
+        <div class="centerH">
+            &nbsp;
+            <button style="margin-left: 30px;">
+                <a href="/trending">
+                    <span class="poppins-semibold">Trending</span>
+                </a>
+            </button>
+            &nbsp;
+            <button>
+                <a href="/categories">
+                    <span class="poppins-semibold">Categories</span>
+                </a>
+            </button>
+        </div>
+        {{#if user}}
+        {{else}}
+        &nbsp;&nbsp;&nbsp;
+
+        <button class="regbtn" onclick="location.href='/auth/signup'">
+            <span class="poppins-medium">Create Account</span>
+        </button>
+        {{/if}}
+    </div>
+    <div class="dprogress-bar">
+        <div class="progress"></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+        <div class="meta-info">
+            <span class="poppins-light">{{#if keyword}}{{keyword}}{{/if}}</span>
+        </div>
+        <h1 class="poppins-medium">{{article.title}}</h1>
+        <p class="poppins-light">{{formatDate date}} &nbsp;&nbsp;|&nbsp;&nbsp; {{time}} Min read</p>
+        <p class="poppins-light">Author: {{author.first_name}} {{author.last_name}}</p>
+    </div>
+    <div class="image-container">
+    </div>
+</div>
+
+<div class="ar-cont">
+    <div class="article-container">
+        {{{article.body}}}
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9864276038862461"
+     crossorigin="anonymous"></script>
+<!-- Square -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9864276038862461"
+     data-ad-slot="3619936681"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+        <style>
+            .trendC {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                border-top: 1px solid #ccc;
+            }
+
+            .topWriters {
+                width: 85%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .topWriters .topContainer {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .topWriters .cardTitle {
+                display: flex;
+                align-items: center;
+            }
+
+            .topWriters .slideIcon {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .topWriters .slideIcon button {
+                width: 40px;
+                height: 40px;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background-color: transparent;
+                cursor: pointer;
+                background-color: #f6f6f6;
+            }
+
+            .topWriters .cardContainer {
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+                padding-bottom: 20px;
+            }
+
+            .topWriters .card {
+                height: 170px;
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #ccc;
+                border-radius: 13px;
+                overflow: hidden;
+                background: #0078e8;
+            }
+
+            .topWriters .card .topCard {
+                width: 100%;
+                height: 60px;
+                display: flex;
+                overflow: hidden;
+                align-items: end;
+                justify-content: center;
+            }
+
+            .topWriters .card .topCard .topperText {
+                width: 100%;
+                height: 20px;
+                background-color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                transform: rotate(-5deg);
+                transform-origin: left center;
+                margin-top: 8px !important;
+                margin: 0 -601.5rem;
+                padding: 0.25rem 1.5rem;
+            }
+
+            .topWriters .card .topCard .topperText marquee {
+                color: #000;
+                text-transform: capitalize;
+                font-size: 12px;
+            }
+
+            .topWriters .card .bottomCard {
+                width: 100%;
+                height: calc(100% - 70px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .topWriters .card .bottomCard .profileArea {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 85px;
+                height: 100%;
+            }
+
+            .topWriters .card .bottomCard .profileArea .profile {
+                width: 60px;
+                height: 60px;
+                overflow: hidden;
+                border-radius: 50%;
+                border: 2px solid #fff;
+            }
+
+            .topWriters .card .bottomCard .profileArea .profile img {
+                width: 100%;
+                height: 100%;
+            }
+
+            .topWriters .card .bottomCard .profileText {
+                width: calc(100% - 85px);
+                height: 100%;
+                display: flex;
+                align-items: start;
+                justify-content: center;
+                flex-direction: column;
+                color: #f6f6f6;
+                padding: 10px;
+            }
+
+            .topWriters .card .bottomCard .profileText h3 {
+                margin: 0;
+                font-weight: 400;
+                font-size: 14px;
+                color: #fff;
+                line-height: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                text-align: left;
+                font-weight: 700;
+            }
+
+            .topWriters .card .bottomCard .profileText span {
+                font-size: 12px;
+                color: #f6f6f6;
+                margin: 0px;
+                line-height: 20px !important;
+                text-align: left;
+            }
+
+            .topWriters .card .bottomCard .profileText .name {
+                width: 100%;
+                overflow: hidden;
+                display: flex;
+                align-items: end;
+            }
+
+            .topWriters .card .bottomCard .profileText .articleAmount {
+                width: 100%;
+                overflow: hidden;
+                display: flex;
+                align-items: start;
+            }
+
+            .artCart .innerCard {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: rgba(70, 70, 70, 0.377);
+                backdrop-filter: blur(3px);
+                padding: 10px 0px 10px;
+            }
+
+            .artCart .innerCard .artTitle {
+                width: 100%;
+                height: 60%;
+                display: flex;
+                align-items: center;
+                justify-content: start;
+            }
+
+            .artCart .innerCard .artBtn {
+                width: 100%;
+                height: 30%;
+                display: flex;
+                align-items: start;
+                justify-content: space-between;
+            }
+
+            .artCart .innerCard .artTitle a {
+                text-decoration: none;
+            }
+
+            .artCart .innerCard .artTitle h3 {
+                font-size: 16px;
+                margin-left: 20px;
+                line-height: 15px;
+                color: #fff;
+            }
+
+            .artCart .innerCard .artBtn button {
+                background: transparent;
+                border: none;
+                height: 100%;
+                width: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+            }
+
+            .artCart .innerCard .artBtn button svg {
+                fill: #fff;
+            }
+        </style>
+    </div>
+</div>
+
+<div class="trendC">
+    <div class="topWriters">
+        <div class="topContainer" style="height: 60px;">
+            <div class="cardTitle">
+                <h3>Trending</h3>
+            </div>
+        </div>
+
+        <!-- Card -->
+        <div class="cardContainer" id="tcardContainer">
+            {{#if trend}}
+            {{#each trend}}
+            <div class="card artCart"
+                style="background: url({{#if this.new_thumb}}'/img/article/{{this.endpoint}}-{{this._id}}-0.jpg'{{else}}'{{#if this.new_thumb}}/img/article/{{this.endpoint}}-{{this._id}}-0.jpg{{else}}/img/article/{{this._id}}.jpg{{/if}}'{{/if}})  no-repeat center center;  background-size: cover;">
+                <div class="innerCard">
+                    <div class="artTitle">
+                        <a href="/page/{{this.endpoint}}">
+                            <h3>{{this.title}}</h3>
+                        </a>
+                    </div>
+                    <div class="artBtn">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                <path
+                                    d="M480.18-353.85q60.97 0 103.47-42.68t42.5-103.65q0-60.97-42.68-103.47t-103.65-42.5q-60.97 0-103.47 42.68t-42.5 103.65q0 60.97 42.68 103.47t103.65 42.5ZM480-392q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm.11 152q-129.96 0-236.88-70.73Q136.31-381.46 83.08-500q53.23-118.54 160.04-189.27T479.89-760q129.96 0 236.88 70.73Q823.69-618.54 876.92-500q-53.23 118.54-160.04 189.27T480.11-240ZM480-500Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z" />
+                            </svg> &nbsp; {{formatNumber this.views}}
+                        </button>
+                        <button
+                            onclick="share('{{this._id}}', '{{this.title}}', '{{this.description}}', '{{this.endpoint}}');">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"
+                                focusable="false"
+                                style="pointer-events: none; display: inherit; width: 24px; height: 24px;">
+                                <path
+                                    d="M15 5.63 20.66 12 15 18.37V14h-1c-3.96 0-7.14 1-9.75 3.09 1.84-4.07 5.11-6.4 9.89-7.1l.86-.13V5.63M14 3v6C6.22 10.13 3.11 15.33 2 21c2.78-3.97 6.44-6 12-6v6l8-9-8-9z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onscroll = function () {
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        document.querySelector(".progress-bar .progress").style.width = scrolled + "%";
+        var dwinScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var dheight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var dscrolled = (dwinScroll / dheight) * 100;
+        document.querySelector(".dprogress-bar .progress").style.width = dscrolled + "%";
+    };
+</script>
