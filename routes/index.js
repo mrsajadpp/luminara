@@ -59,4 +59,22 @@ router.get('/', isAuthorised, async (req, res, next) => {
   }
 });
 
+// Login
+router.get('/auth/login', isNotAuthorised, async (req, res, next) => {
+  try {
+    res.render('login', {
+      title: "LogIn"
+    });
+  } catch (error) {
+    console.error(error);
+    res.render('error', {
+      title: "500",
+      status: 500,
+      message: error.message,
+      style: ['error'],
+      user: req.session && req.session.user ? req.session.user : false
+    });
+  }
+});
+
 module.exports = router; 
