@@ -17,6 +17,12 @@ router.post('/take', async (req, res) => {
     try {
         let student = await Student.findOne({ studentId: studentId }).lean();
         let book = await Book.findOne({ bookId: bookId }).lean();
+        if (!student) {
+            return res.render('book-take', { title: "Register Student", error: { message: 'Student not registered.' } });
+        }
+        if (!book) {
+            return res.render('book-take', { title: "Register Student", error: { message: 'Book not registered.' } });
+        }
         const dueDate = moment().add(7, 'days').toDate();
         const history = new History({ studentId, bookId, bookName, dueDate, studentDbID: student._id, bookDbID: book._id });
         await history.save();
