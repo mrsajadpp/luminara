@@ -1,28 +1,7 @@
 var express = require('express');
 const crypash = require('crypash');
 var router = express.Router();
-const User = require('../models/user');
-const Code = require('../models/code');
-const Article = require('../models/article');
-const ArticleBin = require('../models/artBin');
-const userBin = require('../models/userBin');
-const Page = require('../models/page');
-const Updation = require('../models/updation');
-const ArticleDraft = require('../models/articleDraft');
-const ArticleEditsBin = require('../models/editBin');
-let mail = require('../email/config');
-var geoip = require('geoip-lite');
-let axios = require('axios');
-let fs = require('fs');
-let path = require('path');
-const CleanCSS = require('clean-css');
-const { minify } = require('uglify-js');
-const minifyHTML = require('html-minifier');
-let { sendMail } = require('../email/config')
 const speakeasy = require('speakeasy');
-// const sharp = require('sharp');
-const webp = require('webp-converter');
-const { exec } = require('child_process');
 
 
 const { default: mongoose } = require('mongoose');
@@ -119,7 +98,7 @@ router.post('/auth/login', isNotAuthorised, async (req, res, next) => {
     }
     if (!password) {
         return res.render('login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Password is required.' } });
-    }
+    } 
 
     try {
         if (username === 'admin' && password === 'AdminLuminaraNhss') {

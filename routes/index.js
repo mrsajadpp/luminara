@@ -1,7 +1,4 @@
 var express = require('express');
-const User = require('../models/user');
-const Article = require('../models/article');
-const Page = require('../models/page');
 let mongoose = require('mongoose');
 var geoip = require('geoip-lite');
 const SitemapGenerator = require('sitemap-generator');
