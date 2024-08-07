@@ -73,7 +73,11 @@ router.get('/', async (req, res) => {
 });
 
 
-// Book Return Route
+// Book Return Registration Route
+router.get('/return', (req, res) => {
+    res.render('book-return', { title: "Register Book Taking" });
+});
+
 router.post('/return', async (req, res) => {
     const { studentId, bookId } = req.body;
     try {

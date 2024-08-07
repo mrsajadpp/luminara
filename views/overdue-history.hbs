@@ -66,8 +66,8 @@
             <tbody>
                 {{#each overdueBooks}}
                 <tr>
-                    <td>{{this.studentName}}</td>
-                    <td>{{this.bookName}}</td>
+                    <td>{{this.studentName}} ({{this.studentId}})</td>
+                    <td>{{this.bookName}} ({{this.bookId}})</td>
                     <td>{{this.dueDate}}</td>
                     <td class="overdue">{{this.fine}} Rupees</td>
                 </tr>
