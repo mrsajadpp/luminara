@@ -15,7 +15,6 @@
             height: 100vh;
             background-color: #f0f0f0;
             margin: 0;
-            font-family: Arial, sans-serif;
         }
 
         .container {
@@ -24,35 +23,17 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 350px;
+            width: 300px;
         }
 
         .logo img {
             width: 170px;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-
-        .category {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .category h2 {
-            font-size: 20px;
-            color: #0078e8;
             margin-bottom: 10px;
         }
 
         .link-list {
             list-style: none;
             padding: 0;
-            margin: 0;
         }
 
         .link-list li {
@@ -60,7 +41,7 @@
         }
 
         .link-list a {
-            text-decoration: none;
+            text-decoration: underline;
             color: #0078e8;
             font-size: 18px;
         }
@@ -87,44 +68,17 @@
         <div class="logo">
             <img src="/img/luminara.png" alt="Luminara Logo">
         </div>
-        <h1>Welcome to Luminara Library</h1>
-
-        <!-- Books Management -->
-        <div class="category">
-            <h2>Books Management</h2>
-            <ul class="link-list">
-                <li><a href="/books/add">Add a Book</a></li>
-            </ul>
-        </div>
-
-        <!-- Student Management -->
-        <div class="category">
-            <h2>Student Management</h2>
-            <ul class="link-list">
-                <li><a href="/students/register">Register a Student</a></li>
-            </ul>
-        </div>
-
-        <!-- Book Operations -->
-        <div class="category">
-            <h2>Book Operations</h2>
-            <ul class="link-list">
-                <li><a href="/history/take">Register Book Taking</a></li>
-                <li><a href="/history/return">Return a Book</a></li>
-            </ul>
-        </div>
-
-        <!-- History -->
-        <div class="category">
-            <h2>History</h2>
-            <ul class="link-list">
-                <li><a href="/history/">Full History</a></li>
-                <li><a href="/history/overdue">Overdue Books History</a></li>
-                <li><a href="/history/taken">Books Taken History</a></li>
-                <li><a href="/history/returned">Books Returned History</a></li>
-            </ul>
-        </div>
-
+        <h1>Welcome to Luminara</h1>
+        <ul class="link-list">
+            <li><a href="/history/take">Register Book Taking</a></li>
+            <li><a href="/history/return">Return a Book</a></li>
+            <li><a href="/books/add">Add a Book</a></li>
+            <li><a href="/students/register">Register a Student</a></li>
+            <li><a href="/history/">Full History</a></li>
+            <li><a href="/history/overdue">Overdue Books History</a></li>
+            <li><a href="/history/taken">Books Taken History</a></li>
+            <li><a href="/history/returned">Books Returned History</a></li>
+        </ul>
         <div class="footer">
             <p>© This software designed and developed by</p>
             <img src="/img/grovix_150x544dp.png" alt="Grovix Lab Logo">
