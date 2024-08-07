@@ -57,7 +57,7 @@ router.get('/', isAuthorised, async (req, res, next) => {
       user: req.session && req.session.user ? req.session.user : false
     });
   }
-});
+}); 
 
 // Login
 router.get('/auth/login', isNotAuthorised, async (req, res, next) => {

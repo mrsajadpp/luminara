@@ -115,24 +115,26 @@ router.post('/auth/login', isNotAuthorised, async (req, res, next) => {
 
     // Form validation
     if (!username) {
-        return res.render('user/login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Username is required.' } });
+        return res.render('login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Username is required.' } });
     }
     if (!password) {
-        return res.render('user/login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Password is required.' } });
+        return res.render('login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Password is required.' } });
     }
 
     try {
-        if (username == 'admin' && password == 'AdminLuminaraNhss') {
+        if (username === 'admin' && password === 'AdminLuminaraNhss') {
             req.session.logged = true;
+            res.redirect('/dashboard');  // Redirect to a dashboard or another page upon successful login
         } else {
             req.session.logged = false;
-            return res.render('user/login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Credentials not matching.' } });
+            return res.render('login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Credentials not matching.' } });
         }
     } catch (error) {
         console.error(error);
         res.render('error', { title: "500", status: 500, message: error.message, style: ['error'], user: req.session && req.session.user ? req.session.user : false });
     }
 });
+
 
 
 // Logout
