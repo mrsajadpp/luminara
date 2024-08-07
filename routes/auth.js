@@ -85,29 +85,8 @@ function convertToSlug(text) {
 
 const isAuthorised = (req, res, next) => {
     try {
-        if (!req.session.user) {
+        if (!req.session.logged) {
             res.redirect('/auth/login');
-        } else {
-            if (req.session.user.status) {
-                next();
-            } else {
-                res.redirect('/auth/login');
-            }
-        }
-    } catch (error) {
-        console.error(error);
-
-    }
-}
-
-const isNotAuthorised = (req, res, next) => {
-    try {
-        if (req.session.user) {
-            if (req.session.user.status) {
-                res.redirect('/');
-            } else {
-                next();
-            }
         } else {
             next();
         }
@@ -117,376 +96,37 @@ const isNotAuthorised = (req, res, next) => {
     }
 }
 
-// Signup Route
-router.post('/auth/signup', isNotAuthorised, async (req, res, next) => {
-    const { first_name, last_name, email, phone, password, terms_accept, country_code } = req.body;
-
-    // Form validation
-    if (!first_name) {
-        return res.render('user/signup', { title: "Signup", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'First name is required.' } });
-    }
-    if (!last_name) {
-        return res.render('user/signup', { title: "Signup", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Last name is required.' } });
-    }
-    if (!email) {
-        return res.render('user/signup', { title: "Signup", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Email is required.' } });
-    }
-    if (!phone) {
-        return res.render('user/signup', { title: "Signup", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Phone number is required.' } });
-    }
-    if (!password) {
-        return res.render('user/signup', { title: "Signup", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Password is required.' } });
-    }
-    if (!terms_accept) {
-        return res.render('user/signup', { title: "Signup", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'You must accept the terms and conditions.' } });
-    }
-    if (!country_code) {
-        return res.render('user/signup', { title: "Signup", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Country code is required.' } });
-    }
-
+const isNotAuthorised = (req, res, next) => {
     try {
-        let userExist = await User.findOne({ email: email.toLowerCase() }).lean();
-        if (!userExist) {
-            try {
-                const hashedPass = await crypash.hash('sha256', password);
-                const userData = {
-                    first_name,
-                    last_name,
-                    email: email.toLowerCase(),
-                    contact_no: country_code + ' ' + phone,
-                    password: hashedPass,
-                    date: new Date(),
-                    admin: false,
-                    verified: false,
-                    status: false,
-                    sex: '',
-                    bio: '',
-                    address: {
-                        address_line_one: "",
-                        addressline_two: "",
-                        country: "",
-                        state: "",
-                        city: "",
-                        zip_code: ""
-                    }
-                };
-
-                const user = new User(userData);
-                await user.save();
-
-                // Generate a TOTP code using the secret key
-                const code = speakeasy.totp({
-                    secret: secret.base32, // Ensure 'secret' is defined
-                    encoding: 'base32'
-                });
-
-                const verification = {
-                    user_id: user._id,
-                    verification_code: code,
-                    created_time: new Date()
-                };
-
-                const verification_code = new Code(verification);
-                await verification_code.save();
-
-                sendMail({
-                    from: '"Grovix Lab" <noreply.grovix@gmail.com>',
-                    to: userData.email,
-                    subject: "Your One-Time Verification Code",
-                    text: `Hello,
-                
-                Your verification code is: ${code}
-                
-                Please use this code to complete your verification process.
-                
-                Thank you,
-                The Grovix Team`,
-                    html: `<!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Your One-Time Verification Code</title>
-                </head>
-                <body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #fff;">
-                    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-                        <h2 style="color: #0078e8;">Your One-Time Verification Code</h2>
-                        <p>Hello,</p>
-                        <p>Your verification code is: <strong style="color: #0078e8;">${code}</strong></p>
-                        <p>Please use this code to complete your verification process.</p>
-                        <p>Thank you,<br>The Grovix Team</p>
-                    </div>
-                </body>
-                </html>`
-                });
-
-
-                res.render('user/verify', { title: "Verify Account", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, user_id: user._id });
-            } catch (error) {
-                console.error('Error saving user or sending verification email:', error);
-                res.render('error', { title: "500", status: 500, message: 'Error saving user or sending verification email.', style: ['error'], user: req.session && req.session.user ? req.session.user : false });
-            }
+        if (!req.session.logged) {
+            next();
         } else {
-            try {
-                if (userExist.verified) {
-                    res.render('user/signup', { title: "Signup", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'User already exists, please try to login.' } });
-                } else {
-                    const hashedPass = await crypash.hash('sha256', password);
-                    const userData = {
-                        first_name,
-                        last_name,
-                        email: email.toLowerCase(),
-                        contact_no: country_code + ' ' + phone,
-                        password: hashedPass,
-                        date: new Date(),
-                        admin: false,
-                        verified: false,
-                        status: false,
-                        sex: '',
-                        bio: '',
-                        address: {
-                            address_line_one: "",
-                            addressline_two: "",
-                            country: "",
-                            state: "",
-                            city: "",
-                            zip_code: ""
-                        }
-                    };
-
-                    await User.updateOne({ _id: userExist._id }, userData);
-
-                    const code = speakeasy.totp({
-                        secret: secret.base32,
-                        encoding: 'base32'
-                    });
-
-                    const verification = {
-                        user_id: userExist._id.toString(),
-                        verification_code: code,
-                        created_time: new Date()
-                    };
-
-                    await Code.updateOne({ user_id: userExist._id.toString() }, verification);
-
-                    sendMail({
-                        from: '"Grovix Lab" <noreply.grovix@gmail.com>',
-                        to: userData.email,
-                        subject: "Your One-Time Verification Code",
-                        text: `Hello,
-                    
-                    Your verification code is: ${code}
-                    
-                    Please use this code to complete your verification process.
-                    
-                    Thank you,
-                    The Grovix Team`,
-                        html: `<!DOCTYPE html>
-                    <html lang="en">
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Your One-Time Verification Code</title>
-                    </head>
-                    <body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #fff; color: #333; padding: 20px;">
-                        <div style="max-width: 600px; margin: 0 auto;">
-                            <h2 style="color: #0078e8;">Your One-Time Verification Code</h2>
-                            <p>Hello,</p>
-                            <p>Your verification code is: <strong>${code}</strong></p>
-                            <p>Please use this code to complete your verification process.</p>
-                            <p>Thank you,<br>The Grovix Team</p>
-                        </div>
-                    </body>
-                    </html>`
-                    });
-
-
-                    res.render('user/verify', { title: "Verify Account", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, user_id: userExist._id });
-                }
-            } catch (error) {
-                console.error('Error updating user or sending verification email:', error);
-                res.render('error', { title: "500", status: 500, message: 'Error updating user or sending verification email.', style: ['error'], user: req.session && req.session.user ? req.session.user : false });
-            }
-        }
-    } catch (error) {
-        console.error('Error checking user existence:', error);
-        res.render('error', { title: "500", status: 500, message: 'Error checking user existence.', style: ['error'], user: req.session && req.session.user ? req.session.user : false });
-    }
-});
-
-
-// Verify New User
-router.post('/auth/user/verify/:user_id', isNotAuthorised, async (req, res, next) => {
-    try {
-        if (req.params.user_id && req.body.otp) {
-            let verification = await Code.findOne({ user_id: req.params.user_id });
-            if (req.body.otp == verification.verification_code) {
-                const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-                var geo = await geoip.lookup(clientIp);
-                let user = await User.updateOne({ _id: new mongoose.Types.ObjectId(req.params.user_id) }, { verified: true, status: true });
-                let userData = await User.findOne({ _id: new mongoose.Types.ObjectId(req.params.user_id) });
-
-                sendMail({
-                    from: '"Grovix Lab" <noreply.grovix@gmail.com>',
-                    to: userData.email,
-                    subject: "New Login/Signup Attempt Notification",
-                    text: `Hello,
-                
-                We noticed a new login or signup attempt to your account.
-                
-                Location: ${geo && geo.country ? geo.country : 'unknown'}, ${geo && geo.city ? geo.city : 'unknown'}, ${geo && geo.timezone ? geo.timezone : 'unknown'}.
-                
-                If this was you, no further action is needed. If you suspect any suspicious activity, please contact our support team immediately.
-                
-                Thank you,
-                The Grovix Team`,
-                    html: `<!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>New Login/Signup Attempt Notification</title>
-                </head>
-                <body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #fff; color: #333; padding: 20px;">
-                    <div style="max-width: 600px; margin: 0 auto;">
-                        <h2 style="color: #0078e8;">New Login/Signup Attempt Notification</h2>
-                        <p>Hello,</p>
-                        <p>We noticed a new login or signup attempt to your account.</p>
-                        <p>Location: <strong>${geo && geo.country ? geo.country : 'unknown'}, ${geo && geo.city ? geo.city : 'unknown'}, ${geo && geo.timezone ? geo.timezone : 'unknown'}</strong></p>
-                        <p>If this was you, no further action is needed. If you suspect any suspicious activity, please contact our support team immediately.</p>
-                        
-                        <!-- Google Map iframe -->
-                        <div style="margin-top: 20px; overflow: hidden; position: relative; padding-bottom: 56.25%; height: 0;">
-                            <iframe src="https://maps.google.com/maps?q=${encodeURIComponent(geo && geo.country ? geo.country : 'unknown')}+${geo && geo.city ? geo.city : 'unknown'}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                        
-                        <p>Thank you,<br>The Grovix Team</p>
-                    </div>
-                </body>
-                </html>`
-                });
-
-
-                const {
-                    address,
-                    _id,
-                    first_name,
-                    last_name,
-                    email,
-                    contact_no,
-                    date,
-                    admin,
-                    verified,
-                    status,
-                    bio,
-                    sex,
-                    dob
-                } = await userData.toObject();
-
-                const newData = await {
-                    address,
-                    _id,
-                    first_name,
-                    last_name,
-                    email,
-                    contact_no,
-                    date,
-                    admin,
-                    verified,
-                    status,
-                    bio,
-                    sex,
-                    dob
-                };
-
-                req.session.user = await newData;
-                res.redirect('/');
-            } else {
-                res.render('user/verify', { title: "Verify Account", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, user_id: req.params.user_id, error: { message: "Incorrect code" } });
-            }
-        } else {
-            res.redirect('/auth/signup');
+            res.redirect('/');
         }
     } catch (error) {
         console.error(error);
-        res.render('error', { title: "500", status: 500, message: error.message, style: ['error'], user: req.session && req.session.user ? req.session.user : false });
+        console.error("Error:", err);
     }
-})
-
+}
 
 // login
 router.post('/auth/login', isNotAuthorised, async (req, res, next) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
     // Form validation
-    if (!email) {
-        return res.render('user/login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Email is required.' } });
+    if (!username) {
+        return res.render('user/login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Username is required.' } });
     }
     if (!password) {
         return res.render('user/login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Password is required.' } });
     }
 
     try {
-        let user = await User.findOne({ email: email.toLowerCase() });
-        if (!user) {
-            res.render('user/login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: "The account does not exist, please try to signup." } });
+        if (username == 'admin' && password == 'AdminLuminaraNhss') {
+            req.session.logged = true;
         } else {
-            let password_match = await crypash.check('sha256', password, user.password);
-            if (password_match) {
-                // Generate a TOTP code using the secret key 
-                const code = await speakeasy.totp({
-
-                    // Use the Base32 encoding of the secret key 
-                    secret: secret.base32,
-
-                    // Tell Speakeasy to use the Base32  
-                    // encoding format for the secret key 
-                    encoding: 'base32'
-                });
-
-                let verification = {
-                    user_id: user._id.toString(),
-                    verification_code: code,
-                    created_time: new Date()
-                };
-                const one_time_code = await Code.updateOne({ user_id: user._id.toString() }, verification);
-
-                sendMail({
-                    from: '"Grovix Lab" <noreply.grovix@gmail.com>',
-                    to: user.email,
-                    subject: "Your One-Time Verification Code",
-                    text: `Hello,
-                
-                Your verification code is: ${code}
-                
-                Please use this code to complete your verification process.
-                
-                Thank you,
-                The Grovix Team`,
-                    html: `<!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Your One-Time Verification Code</title>
-                </head>
-                <body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #fff; color: #333; padding: 20px;">
-                    <div style="max-width: 600px; margin: 0 auto;">
-                        <h2 style="color: #0078e8;">Your One-Time Verification Code</h2>
-                        <p>Hello,</p>
-                        <p>Your verification code is: <strong>${code}</strong></p>
-                        <p>Please use this code to complete your verification process.</p>
-                        <p>Thank you,<br>The Grovix Team</p>
-                    </div>
-                </body>
-                </html>`
-                });
-
-
-                res.render('user/verify', { title: "Verify Account", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, user_id: user._id });
-            } else {
-                res.render('user/login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, error: { message: "Password does not match!" } });
-            }
+            req.session.logged = false;
+            return res.render('user/login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Credentials not matching.' } });
         }
     } catch (error) {
         console.error(error);
@@ -498,45 +138,8 @@ router.post('/auth/login', isNotAuthorised, async (req, res, next) => {
 // Logout
 router.get('/logout', isAuthorised, async (req, res, next) => {
     try {
-        // Store user details before destroying the session
-        const userData = req.session.user;
-
         // Destroy the session
-        req.session = null;
-
-        // Send email notification to the user
-        sendMail({
-            from: '"Grovix Lab" <noreply.grovix@gmail.com>',
-            to: userData.email,
-            subject: "Your Account Has Been Logged Out",
-            text: `Hello ${userData.first_name},
-        
-        This is to inform you that your account has been logged out.
-        
-        If this was not you or if you have any questions, please contact our support team for assistance.
-        
-        Best regards,
-        The Grovix Team`,
-
-            html: `<!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Your Account Has Been Logged Out</title>
-        </head>
-        <body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #fff; color: #333; padding: 20px;">
-            <div style="max-width: 600px; margin: 0 auto;">
-                <h2 style="color: #0078e8;">Your Account Has Been Logged Out</h2>
-                <p>Hello ${userData.first_name},</p>
-                <p>This is to inform you that your account has been <strong>logged out</strong>.</p>
-                <p>If this was not you or if you have any questions, please contact our support team for assistance.</p>
-                <p>Best regards,<br>The Grovix Team</p>
-            </div>
-        </body>
-        </html>`
-        });
-
+        req.session.logged = false;
 
         // Redirect to login page
         res.redirect('/auth/login');
@@ -552,32 +155,5 @@ router.get('/logout', isAuthorised, async (req, res, next) => {
         });
     }
 });
-
-// async function convertEmailsToLowerCase() {
-//     try {
-//         // Find all users
-//         const users = await User.find();
-
-//         // Iterate through each user and update the email to lowercase
-//         for (const user of users) {
-//             const lowercaseEmail = user.email.toLowerCase();
-//             if (user.email !== lowercaseEmail) {
-//                 user.email = lowercaseEmail;
-//                 await user.save();
-//                 console.log(`Updated email for user ${user._id}: ${lowercaseEmail}`);
-//             }
-//         }
-
-//         console.log('All emails have been converted to lowercase.');
-//     } catch (error) {
-//         console.error('Error converting emails:', error);
-//     } finally {
-//         // Close the MongoDB connection
-//         mongoose.connection.close();
-//     }
-// }
-
-// // Run the function
-// convertEmailsToLowerCase();
 
 module.exports = router;

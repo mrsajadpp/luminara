@@ -24,8 +24,7 @@ var logRouter = require('./routes/auth');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.use(cors());
-app.use(favicon(path.join(__dirname, 'public', '/icons/favicon.ico')));
+app.use(cors()); 
 app.engine('hbs', handlebars.engine({
   extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/', partialsDir: __dirname + '/views/partials/', helpers: {
     ifequal: function (arg1, arg2, options) {
@@ -81,10 +80,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', logRouter);
 app.use('/', indexRouter);
-
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'public', 'html', 'index.html'));
-// });
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
