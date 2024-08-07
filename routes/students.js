@@ -4,6 +4,8 @@ const Student = require('../models/Student');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const QRCode = require('qrcode');
+let mongoose = require('mongoose');
+let ObjectId = mongoose.Types.ObjectId;
 
 async function generateUniqueId() {
     let uniqueId = await 'LR' + Math.floor(10000 + Math.random() * 90000);
@@ -25,15 +27,14 @@ router.post('/register', async (req, res) => {
         return res.render('student-register', { title: "Register Student", error: { message: 'Student already registered.' } });
     }
     const studentId = await generateUniqueId();
-    console.log(studentId);
 
     try {
         // Create a document
         const doc = new PDFDocument();
-        const student = new Student({ studentName, registerNumber, standard, division, studentId });
+        const student = new Student({ studentName, registerNumber, standard, division, studentId: studentId });
         await student.save();
 
-        // Generate QR code
+        // Generate QR code 
         const qrData = JSON.stringify({ studentId, studentName, registerNumber, standard, division });
         const qrCodeUrl = await QRCode.toDataURL(qrData);
 

@@ -56,7 +56,7 @@
         }
 
         .taken td {
-            color: yellow;
+            color: black;
         }
 
         .returned td {
@@ -80,8 +80,8 @@
             <tbody>
                 {{#each overdueBooks}}
                 <tr class="overdue">
-                    <td>{{this.bookName}}</td>
-                    <td>{{this.studentId.studentName}}</td>
+                    <td>{{this.bookName}} ({{this.bookId}})</td>
+                    <td>{{this.studentName}} ({{this.studentId}})</td>
                     <td>₹{{this.fine}}</td>
                 </tr>
                 {{/each}}
@@ -99,8 +99,8 @@
             <tbody>
                 {{#each booksTaken}}
                 <tr class="taken">
-                    <td>{{this.bookName}}</td>
-                    <td>{{this.studentId.studentName}}</td>
+                    <td>{{this.bookName}} ({{this.bookId}})</td>
+                    <td>{{this.studentName}} ({{this.studentId}})</td>
                 </tr>
                 {{/each}}
             </tbody>
@@ -117,8 +117,8 @@
             <tbody>
                 {{#each booksReturned}}
                 <tr class="returned">
-                    <td>{{this.bookName}}</td>
-                    <td>{{this.studentId.studentName}}</td>
+                    <td>{{this.bookName}} ({{this.bookId}})</td>
+                    <td>{{this.studentName}} ({{this.studentId}})</td>
                 </tr>
                 {{/each}}
             </tbody>

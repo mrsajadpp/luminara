@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const History = require('../models/History');
+const Student = require('../models/Student');
+const Book = require('../models/Book');
 const moment = require('moment');
+let mongoose = require('mongoose');
+let ObjectId = mongoose.Types.ObjectId;
 
 // Book Taking Registration Route
 router.get('/take', (req, res) => {
@@ -10,9 +14,11 @@ router.get('/take', (req, res) => {
 
 router.post('/take', async (req, res) => {
     const { studentId, bookId, bookName } = req.body;
-    const dueDate = moment().add(7, 'days').toDate();
     try {
-        const history = new History({ studentId, bookId, bookName, dueDate });
+        let student = await Student.findOne({ studentId: studentId }).lean();
+        let book = await Book.findOne({ bookId: bookId }).lean();
+        const dueDate = moment().add(7, 'days').toDate();
+        const history = new History({ studentId, bookId, bookName, dueDate, studentDbID: student._id, bookDbID: book._id });
         await history.save();
         res.redirect('/history/take');
     } catch (err) {
@@ -21,19 +27,41 @@ router.post('/take', async (req, res) => {
     }
 });
 
+
 // History Page
 router.get('/', async (req, res) => {
     try {
-        const overdueBooks = await History.find({ status: 'taken', dueDate: { $lt: new Date() } }).populate('studentId').populate('bookId');
-        overdueBooks.forEach(entry => {
+        // Fetch overdue books
+        const overdueBooks = await History.find({ status: 'taken', dueDate: { $lt: new Date() } }).lean();
+        for (let entry of overdueBooks) {
+            const student = await Student.findOne({ studentId: entry.studentId }); // Find student by custom ID
+            const book = await Book.findOne({ bookId: entry.bookId });            // Find book by custom ID
+            entry.studentName = student ? student.studentName : 'Unknown';
+            entry.bookName = book ? book.bookName : 'Unknown';
             entry.fine = moment().diff(entry.dueDate, 'days') * 5;
-        });
+        }
 
-        const booksTaken = await History.find({ status: 'taken', dueDate: { $gte: new Date() } }).populate('studentId').populate('bookId');
-        const booksReturned = await History.find({ status: 'returned' }).populate('studentId').populate('bookId');
+        // Fetch books taken
+        const booksTaken = await History.find({ status: 'taken', dueDate: { $gte: new Date() } }).lean();
+        for (let entry of booksTaken) {
+            const student = await Student.findOne({ studentId: entry.studentId }); // Find student by custom ID
+            const book = await Book.findOne({ bookId: entry.bookId });            // Find book by custom ID
+            entry.studentName = student ? student.studentName : 'Unknown';
+            entry.bookName = book ? book.bookName : 'Unknown';
+        }
 
-        res.render('history', {
-            title: "History",
+        // Fetch books returned
+        const booksReturned = await History.find({ status: 'returned' }).lean();
+        for (let entry of booksReturned) {
+            const student = await Student.findOne({ studentId: entry.studentId }); // Find student by custom ID
+            const book = await Book.findOne({ bookId: entry.bookId });            // Find book by custom ID
+            entry.studentName = student ? student.studentName : 'Unknown';
+            entry.bookName = book ? book.bookName : 'Unknown';
+        }
+        
+
+        res.render('history', { 
+            title: "History", 
             overdueBooks,
             booksTaken,
             booksReturned
@@ -43,6 +71,7 @@ router.get('/', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
 
 // Book Return Route
 router.post('/return', async (req, res) => {
@@ -84,8 +113,7 @@ router.get('/overdue', async (req, res) => {
 // Books Taken History
 router.get('/taken', async (req, res) => {
     try {
-        const booksTaken = await History.find({ status: 'taken', dueDate: { $gte: new Date() } }).populate('studentId').populate('bookId');
-
+        const booksTaken = await History.find({ status: 'taken', dueDate: { $gte: new Date() } }).lean();
         res.render('taken-history', {
             title: "Books Taken History",
             booksTaken,

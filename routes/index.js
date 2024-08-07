@@ -1,7 +1,5 @@
 var express = require('express');
 let mongoose = require('mongoose');
-var geoip = require('geoip-lite');
-const SitemapGenerator = require('sitemap-generator');
 
 var router = express.Router();
 
