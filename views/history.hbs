@@ -1,0 +1,31 @@
+<div class="container">
+    <h1>History</h1>
+
+    <h2>Overdue Books</h2>
+    <ul class="history-list overdue">
+        {{#each overdueBooks}}
+        <li>
+            <span>{{this.bookName}}</span> - <span>{{this.studentId.studentName}}</span> - <span>Fine:
+                ₹{{this.fine}}</span>
+        </li>
+        {{/each}}
+    </ul>
+
+    <h2>Books Taken</h2>
+    <ul class="history-list taken">
+        {{#each booksTaken}}
+        <li>
+            <span>{{this.bookName}}</span> - <span>{{this.studentId.studentName}}</span>
+        </li>
+        {{/each}}
+    </ul>
+
+    <h2>Books Returned</h2>
+    <ul class="history-list returned">
+        {{#each booksReturned}}
+        <li>
+            <span>{{this.bookName}}</span> - <span>{{this.studentId.studentName}}</span>
+        </li>
+        {{/each}}
+    </ul>
+</div>

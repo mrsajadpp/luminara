@@ -103,7 +103,7 @@ router.post('/auth/login', isNotAuthorised, async (req, res, next) => {
     try {
         if (username === 'admin' && password === 'AdminLuminaraNhss') {
             req.session.logged = true;
-            res.redirect('/dashboard');  // Redirect to a dashboard or another page upon successful login
+            res.redirect('/');  // Redirect to a dashboard or another page upon successful login
         } else {
             req.session.logged = false;
             return res.render('login', { title: "Login", style: ['regform'], user: req.session && req.session.user ? req.session.user : false, data: req.body, error: { message: 'Credentials not matching.' } });

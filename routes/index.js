@@ -41,26 +41,16 @@ function getCurrentDate() {
 }
 
 // Home
-router.get('/', isAuthorised, async (req, res, next) => {
-  try {
-
-  } catch (error) {
-    console.error(error);
-    res.render('error', {
-      title: "500",
-      status: 500,
-      message: error.message,
-      style: ['error'],
-      user: req.session && req.session.user ? req.session.user : false
-    });
-  }
-}); 
+router.get('/', (req, res) => {
+  res.render('main', { title: 'Main Page' });
+});
 
 // Login
 router.get('/auth/login', isNotAuthorised, async (req, res, next) => {
   try {
     res.render('login', {
-      title: "LogIn"
+      title: "LogIn",
+      auth: true
     });
   } catch (error) {
     console.error(error);
