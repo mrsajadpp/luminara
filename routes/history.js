@@ -87,6 +87,14 @@ router.get('/return', (req, res) => {
 router.post('/return', async (req, res) => {
     const { studentId, bookId } = req.body;
     try {
+        let student = await Student.findOne({ studentId: studentId }).lean();
+        let book = await Book.findOne({ bookId: bookId }).lean();
+        if (!student) {
+            return res.render('book-return', { title: "Register Student", error: { message: 'Student not registered.' } });
+        }
+        if (!book) {
+            return res.render('book-return', { title: "Register Student", error: { message: 'Book not registered.' } });
+        }
         const historyEntry = await History.findOne({ studentId, bookId, status: 'taken' });
         if (historyEntry) {
             historyEntry.status = 'returned';
