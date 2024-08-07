@@ -37,8 +37,6 @@ router.post('/register', async (req, res) => {
         const qrData = JSON.stringify({ studentId, studentName, registerNumber, standard, division });
         const qrCodeUrl = await QRCode.toDataURL(qrData);
 
-        doc.pipe(fs.createWriteStream(studentId + '.pdf'));
-
         doc.fontSize(16).text('Luminara', { align: 'center' });
         doc.fontSize(12).text(`Student ID: ${studentId}`);
         doc.text(`Name: ${studentName}`);
